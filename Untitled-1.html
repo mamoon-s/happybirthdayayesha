@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday Ayesha (Tidhi)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #ffe4ec;
+            color: #333;
+            text-align: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            animation: fade 1s;
+        }
+
+        .active {
+            display: flex;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #d81b60;
+            animation: pulse 2s infinite;
+        }
+
+        p {
+            font-size: 1.3rem;
+            color: #555;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            color: #fff;
+            background: #d81b60;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: .3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #ad1457;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .cake {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background: pink;
+            border-radius: 50% 50% 45% 45%;
+            animation: floatUp 6s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+            }
+        }
+
+        .typing-text {
+            border-right: 2px solid #000;
+            width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            animation: typing 6s steps(50, end) forwards;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: pink;
+            transform: rotate(45deg);
+            animation: float 7s linear infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: pink;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                bottom: 100vh;
+                opacity: 0;
+            }
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="screen1" class="screen active">
+        <h1>I have something for you 💌</h1>
+        <button onclick="nextScreen(2)">Click Here</button>
+    </div>
+
+    <div id="screen2" class="screen">
+        <h1>It’s a special day for me 💋💞🫂</h1>
+        <button onclick="nextScreen(3)">Tap to Continue</button>
+    </div>
+
+    <div id="screen3" class="screen">
+        <h1>Happy Birthday Ayesha (Tidhi) 💖</h1>
+        <p>My world began with your smile.</p>
+        <button onclick="nextScreen(4)">Let’s Celebrate 🎉</button>
+    </div>
+
+    <div id="screen4" class="screen">
+        <h1>Let’s cut the cake 🎂</h1>
+        <p>Ready?</p>
+        <button onclick="cutCake()">Cut the Cake</button>
+        <img id="cake" class="cake" src="https://i.imgur.com/jxU6FQp.png" width="200" />
+    </div>
+
+    <div id="screen5" class="screen">
+        <h1>💝 Happy Birthday Ayesha (Tidhi) 💝</h1>
+        <p class="typing-text">
+            Today isn’t just your birthday — it’s the day the most beautiful soul was born.
+            You are my peace, my smile, my world.
+            I love you forever. — Your Mamoon 💖
+        </p>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+    <audio id="bgm" src="https://cdn.pixabay.com/audio/2022/03/15/audio_c14a4b6185.mp3" loop></audio>
+    <audio id="pop"
+        src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2ff28c07a1.mp3?filename=pop-94319.mp3"></audio>
+
+    <script>
+        function nextScreen(n) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + n).classList.add('active');
+            if (n == 3) document.getElementById('bgm').play();
+        }
+
+        function cutCake() {
+            nextScreen(5);
+            document.getElementById("cake").style.display = "block";
+            document.getElementById("pop").play();
+            createBalloons();
+        }
+
+        function createBalloons() {
+            for (let i = 0; i < 30; i++) {
+                let b = document.createElement("div");
+                b.className = "balloon";
+                b.style.left = Math.random() * 100 + "vw";
+                b.style.bottom = "0";
+                b.style.background = getRandomColor();
+                b.style.animationDuration = (Math.random() * 3 + 4) + "s";
+                document.body.appendChild(b);
+            }
+            for (let i = 0; i < 20; i++) {
+                let h = document.createElement("div");
+                h.className = "heart";
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.bottom = "0";
+                h.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                document.getElementById("hearts").appendChild(h);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = ["#ff4d6d", "#ffc107", "#81d4fa", "#ba68c8", "#f06292"];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        document.body.addEventListener("click", () => document.getElementById("bgm").play(), { once: true });
+    </script>
+
+</body>
+
+</html>
